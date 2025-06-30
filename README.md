@@ -6,11 +6,9 @@ A React-based application that will allow users to browse detials about their fa
 
 ## Tech Stack
 
-- **React**
-- **React DOM**
-- **Parcel**
-- **Sass/SCSS**
-- **JSX**
+- **React** ^19.1.0
+- **React DOM** ^19.1.0
+- **parcel/transformer-sass** ^2.15.4
 
 ## Project Layout
 
