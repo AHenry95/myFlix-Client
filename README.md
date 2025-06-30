@@ -14,6 +14,7 @@ A React-based application that will allow users to browse detials about their fa
 
 ## Project Layout
 
+```
 myflix-client/
 ├── src/
 │   ├── index.html          # Main HTML file
@@ -21,6 +22,7 @@ myflix-client/
 │   └── index.scss          # Sass styles
 ├── package.json            # Project dependencies
 └── README.md              # Project documentation
+```
 
 ## Current Status
 
