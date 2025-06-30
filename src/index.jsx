@@ -4,13 +4,13 @@ import "./index.scss"
 
 const MyFlixApplication = () => {
     return(
-        <div classname="my-flix">
+        <div className="my-flix">
             <div>Good morning</div>
         </div>
     );
 };
 
-const container = documnet.querySelector("#root");
+const container = document.querySelector("#root");
 const root = createRoot(container);
 
 root.render(<MyFlixApplication/>);
