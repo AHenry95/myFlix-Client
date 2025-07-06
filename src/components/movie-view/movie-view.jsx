@@ -13,6 +13,29 @@ export const MovieView = ({ movie, onBackClick }) => {
         <span>Director: </span>
         <span>{movie.director}</span>
       </div>
+      <div>
+        <span>Genre: </span>
+        <span>{movie.genre}</span>
+      </div>
+      <div>
+        <span>Description: </span>
+        <span>{movie.description}</span>
+      </div>
+      <div>
+        <span>Actors: </span>
+        <ul>
+          {movie.actors.length === 0 ? (
+            <li>This movie features no actors! How strange!</li>
+          ) : (
+            movie.actors.map((actor) => <li key={actor.id}>{actor.name}</li>)
+          )}
+        </ul>
+      </div>
+      <div>
+        <span>Release Year: </span>
+        <span>{movie.releaseYear}</span>
+      </div>
+
       <button onClick={onBackClick}>Back</button>
     </div>
   )
