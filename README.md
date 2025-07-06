@@ -24,22 +24,23 @@ myflix-client/
 
 ## Current Status
 
-This project is in the earliest stages of devlopment, and currently only includes basic React setup
+This project is in the very early stages of devlopment, and currently includes the following components:
+
+* MainView - this displays a list of MovieCards from the movie database (currently an in-memory array containing three movies)
+* MovieCard - These components display the titles of the movies in the databse, and open the MovieView when clicked
+* MovieView - This view displays the movie's title, director, genre, description, a list of actors, and release year.
 
 ## Planned Views and Features
 
 * **API Integration** with movie_api 
 
 #### Main View
-* Show users all movies on application
 * Allow users to filter movies with a search function
 * Allow users to filter/sort movies with different criteria
-* Allow users to select movies in order to view more details about each movie
 * Allow users to log out
 * Allow users to navigate to profile view
 
 #### Single Movie View
-* Returns data (description, genre, director, image, actors) about a single movie to the user
 * Allow the user to add the movie to their favorite's list
 * Allow users to access different views to view more information (i.e. will link to genre view, director view, and actor views for genre/director/actors from each movie)
 * Allow users to share a movie
