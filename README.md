@@ -32,8 +32,6 @@ This project is in the very early stages of devlopment, and currently includes t
 
 ## Planned Views and Features
 
-* **API Integration** with movie_api 
-
 #### Main View
 * Allow users to filter movies with a search function
 * Allow users to filter/sort movies with different criteria
