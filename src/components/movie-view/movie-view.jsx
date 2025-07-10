@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const MovieView = ({ movie, onBackClick }) => {
   return (
     <div>
@@ -11,11 +13,11 @@ export const MovieView = ({ movie, onBackClick }) => {
       </div>
       <div>
         <span>Director: </span>
-        <span>{movie.director}</span>
+        <span>{movie.director.Name}</span>
       </div>
       <div>
         <span>Genre: </span>
-        <span>{movie.genre}</span>
+        <span>{movie.genre.Name}</span>
       </div>
       <div>
         <span>Description: </span>
@@ -27,7 +29,7 @@ export const MovieView = ({ movie, onBackClick }) => {
           {movie.actors.length === 0 ? (
             <li>This movie features no actors! How strange!</li>
           ) : (
-            movie.actors.map((actor) => <li key={actor.id}>{actor.name}</li>)
+            movie.actors.map((actor) => <li key={actor._id}>{actor.name}</li>)
           )}
         </ul>
       </div>
@@ -40,3 +42,26 @@ export const MovieView = ({ movie, onBackClick }) => {
     </div>
   )
 }
+
+MovieView.PropTypes = {
+  movie: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    director: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      bio: PropTypes.string,
+      BirthYear: PropTypes.string
+      }).isRequired, 
+    genre: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired
+      }).isRequired,
+    description: PropTypes.string.isRequired,
+    actors: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      birthYear: PropTypes.string
+      })),
+    releaseYear: PropTypes.string.isRequired
+  }).isRequired,
+  onBackClick: PropTypes.func.isRequired
+};

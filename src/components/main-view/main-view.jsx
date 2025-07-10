@@ -1,55 +1,76 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
-  const [ movies, setMovies ] = useState([
-    {
-      id: 1,
-      title: "Flow",
-      description: "Flow tells the story of a cat, along with a group of other animals, who attempt to survive a mysterious and extreme flood in a seemingly post-apocalyptic world. The movie features no dialogue.",
-      director: "Gints Zilbalodis",
-      genre: "Animation",
-      actors: [], 
-      releaseYear: "2024" 
-    },
-    {
-      id: 2, 
-      title: "The Brutalist",
-      description: "The Brutalist is the story of fictional Hungarian-Jewish holocaust survivor and renowned architect László Tóth's immigration to the United States, and the personal and professional success and strife he finds there.",
-      director: "Brady Corbet",
-      genre: "Period Drama",
-      actors: [
-        {
-          id: 1,
-          name: "Adrien Brody"
-        }
-      ],
-      releaseYear: "2024"
-    },
-    {
-      id: 3, 
-      title: "Sing Sing",
-      description: "Sing Sing portrays the real-life story of John 'Divine G' Whitfield and the Rehabilitation Through the Arts program at the Sing Sing Maximum Security Prison in New York. The film features inmates attempting to stage a play while they grapple with the US Justice System, and their own personal conflicts (both internal and external).",
-      director: "Greg Kewdar",
-      genre: "Prison Film",
-      actors: [
-        {
-          id: 1,
-          name: "Colman Domingo"
-        }
-      ],
-      releaseYear: "2024",
-    }
-  ]);
+  const [ movies, setMovies ] = useState([]);
+  const [ error, setError ] = useState(null);
+
+  useEffect(() => {
+    fetch('https://myflix-ah-72292705dfa8.herokuapp.com/movies')
+      .then((response) => response.json())
+      .then((data) => {
+        const moviesFromApi = data.map((movie) => {
+          return {
+            id: movie._id,
+            title: movie.Title,
+            director: movie.Director,
+            genre: movie.Genre,
+            description: movie.Description,
+            actors: movie.Actors,
+            releaseYear: movie.ReleaseYear
+          };
+        });
+
+        setMovies(moviesFromApi);
+      })
+      .catch((error) => {
+        console.error('Error fetching movies', error);
+        setError('Failed to load movies. Please try again later');
+      });
+  }, []);
 
   const [selectedMovie, setSelectedMovie] = useState(null);
 
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   if (selectedMovie) {
-    return <MovieView 
-      movie={selectedMovie} 
-      onBackClick={() => setSelectedMovie(null)}
-    />;
+    let similarMovies = movies.filter(movie => {
+      const movieIsSimilar = movie.genre.Name === selectedMovie.genre.Name;
+      const notSelectedMovie = movie.id !== selectedMovie.id;
+      return (notSelectedMovie && movieIsSimilar);
+    });
+
+    return (
+    <>
+      <MovieView 
+        movie={selectedMovie} 
+        onBackClick={() => setSelectedMovie(null)}
+      />
+      <hr />
+      <h2>Similar Movies</h2>
+      <ul>
+        {similarMovies.length === 0 ? (
+          <li>There are no similar movies in our catalog yet! Please chcek back soon.</li>
+        ) : (
+          similarMovies.map((movie) => {
+            return (
+              <li key={movie.id}>
+                <MovieCard
+                  movie={movie}
+                  onMovieClick={(newSelectedMovie) => {
+                    setSelectedMovie(newSelectedMovie);
+                  }}
+                />
+              </li>
+            )
+          })
+        )}
+      </ul>
+    </>
+    )
   }
 
   if (movies.length === 0) {
