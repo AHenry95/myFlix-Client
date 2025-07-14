@@ -61,6 +61,7 @@ export const LoginView = ({ onLoggedIn }) => {
             />
           </label>
         </div>
+        <button type="submit">Login</button> 
       </form>
     </>
   );
