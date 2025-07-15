@@ -1,13 +1,26 @@
 import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
+import { LoginView } from "../login-view/login-view";
+import { SignupView } from "../signup-view/signup-view";
 
 export const MainView = () => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
+  const [ user, setUser ] = useState(storedUser ? storedUser : null);
+  const [ token, setToken ] = useState(storedToken ? storedToken : null);
   const [ movies, setMovies ] = useState([]);
   const [ error, setError ] = useState(null);
+  const [ selectedMovie, setSelectedMovie ] = useState(null);
 
   useEffect(() => {
-    fetch('https://myflix-ah-72292705dfa8.herokuapp.com/movies')
+    if (!token) {
+      return
+    }
+
+    fetch('https://myflix-ah-72292705dfa8.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
       .then((response) => response.json())
       .then((data) => {
         const moviesFromApi = data.map((movie) => {
@@ -28,9 +41,20 @@ export const MainView = () => {
         console.error('Error fetching movies', error);
         setError('Failed to load movies. Please try again later');
       });
-  }, []);
+  }, [token]);
 
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  if (!user) {
+    return (
+      <>
+        <LoginView onLoggedIn={(user, token) => {
+          setUser(user);
+          setToken(token);
+        }} />
+        <br />
+        <SignupView />
+      </>
+    )
+  }
 
   if (error) {
     return <div>{error}</div>;
@@ -88,6 +112,14 @@ export const MainView = () => {
           }}
         />
       ))}
+      <button onClick={() => {
+        setUser(null);
+        setToken(null);
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+      }}>
+        Logout
+      </button>
     </div>
   );
 };
