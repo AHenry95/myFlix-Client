@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import { BrowserRouter, Routes, Route, Navigation } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
+import { NavigationBar } from "../navigation-bar/navigation-bar";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -14,7 +16,6 @@ export const MainView = () => {
   const [ token, setToken ] = useState(storedToken ? storedToken : null);
   const [ movies, setMovies ] = useState([]);
   const [ error, setError ] = useState(null);
-  const [ selectedMovie, setSelectedMovie ] = useState(null);
 
   useEffect(() => {
     if (!token) {
@@ -47,11 +48,11 @@ export const MainView = () => {
       });
   }, [token]);
 
-  const similarMovies = selectedMovie ? movies.filter(movie => {
-    const movieIsSimilar = movie.genre.Name === selectedMovie.genre.Name;
-    const notSelectedMovie = movie.id !== selectedMovie.id;
-    return (notSelectedMovie && movieIsSimilar);
-  }) : [];
+  // const similarMovies = selectedMovie ? movies.filter(movie => {
+  //   const movieIsSimilar = movie.genre.Name === selectedMovie.genre.Name;
+  //   const notSelectedMovie = movie.id !== selectedMovie.id;
+  //   return (notSelectedMovie && movieIsSimilar);
+  // }) : [];
 
   return (
     <Row className="justify-content-md-center">
