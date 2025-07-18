@@ -1,5 +1,6 @@
-$color: steelblue;
+$primary: green;
+$body-bg: lightgrey;
+$card-bg: white;
+$font-family-base: 'Roboto Condensed', sans-serif;
 
-.my-flix {
-    color: $color;
-}
+@import '~bootstrap/scss/bootstrap.scss';

@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
+import Button from "react-bootstrap/Button";
+import "./movie-view.scss";
 
 export const MovieView = ({ movie, onBackClick }) => {
   return (
     <div>
-{/* There is no image in the sample dataset, or the current DB configuration, but that will be implemented at a later date and this code will be uncommented.       
       <div>
-        <img src={movie.image} />
-      </div> */}
+        <img src={movie.image} className="movie-poster"/>
+      </div> 
       <div>
         <span>Title: </span>
         <span>{movie.title}</span>
@@ -38,7 +39,7 @@ export const MovieView = ({ movie, onBackClick }) => {
         <span>{movie.releaseYear}</span>
       </div>
 
-      <button onClick={onBackClick}>Back</button>
+      <Button variant="primary" onClick={onBackClick}>Back</Button>
     </div>
   )
 }
