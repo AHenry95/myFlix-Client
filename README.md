@@ -27,8 +27,8 @@ myflix-client/
 This project is in the very early stages of devlopment, and currently includes the following components:
 
 * MainView - this displays a list of MovieCards from using data imported from movie_api.
-* MovieCard - These components display the titles of the movies in the databse, and open the MovieView when clicked.
-* MovieView - This view displays the movie's title, director, genre, description, a list of actors, and release year, as well as a list of MovieCards for similar movies (movies that have the same genre).
+* MovieCard - These components display the titles and poster images of the movies in the databsse, and open the MovieView when clicked.
+* MovieView - This view displays the movie's poster image, title, director, genre, description, a list of actors, and release year, as well as a list of MovieCards for similar movies (movies that have the same genre).
 * SignupView - Allows new users to create accounts and through the movie_api stores their data in the database. New users must provide their name, username, password, email, and may provide data of birth. 
 * LoginView - Allows existing users to sign-in to the client and access its features using their username and password. 
 
