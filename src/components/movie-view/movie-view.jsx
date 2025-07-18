@@ -1,46 +1,53 @@
 import PropTypes from 'prop-types';
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import "./movie-view.scss";
 
-export const MovieView = ({ movie, onBackClick }) => {
-  return (
-    <div>
-      <div>
-        <img src={movie.image} className="movie-poster"/>
-      </div> 
-      <div>
-        <span>Title: </span>
-        <span>{movie.title}</span>
-      </div>
-      <div>
-        <span>Director: </span>
-        <span>{movie.director.Name}</span>
-      </div>
-      <div>
-        <span>Genre: </span>
-        <span>{movie.genre.Name}</span>
-      </div>
-      <div>
-        <span>Description: </span>
-        <span>{movie.description}</span>
-      </div>
-      <div>
-        <span>Actors: </span>
-        <ul>
-          {movie.actors.length === 0 ? (
-            <li>This movie features no actors! How strange!</li>
-          ) : (
-            movie.actors.map((actor) => <li key={actor._id}>{actor.name}</li>)
-          )}
-        </ul>
-      </div>
-      <div>
-        <span>Release Year: </span>
-        <span>{movie.releaseYear}</span>
-      </div>
+export const MovieView = ({ movies }) => {
+	const { movieId } = useParams();
 
-      <Button variant="primary" onClick={onBackClick}>Back</Button>
-    </div>
+	const movie = movies.find((m) => m.id === movieId);
+
+  	return (
+    <div>
+      	<div>
+        	<img src={movie.image} className="movie-poster"/>
+		</div> 
+		<div>
+			<span>Title: </span>
+			<span>{movie.title}</span>
+		</div>
+		<div>
+			<span>Director: </span>
+			<span>{movie.director.Name}</span>
+		</div>
+		<div>
+			<span>Genre: </span>
+			<span>{movie.genre.Name}</span>
+		</div>
+		<div>
+			<span>Description: </span>
+			<span>{movie.description}</span>
+		</div>
+		<div>
+			<span>Actors: </span>
+			<ul>
+			{movie.actors.length === 0 ? (
+				<li>This movie features no actors! How strange!</li>
+			) : (
+				movie.actors.map((actor) => <li key={actor._id}>{actor.name}</li>)
+			)}
+			</ul>
+		</div>
+		<div>
+			<span>Release Year: </span>
+			<span>{movie.releaseYear}</span>
+		</div>
+		<Link to="/">
+			<Button variant="primary">Back</Button>
+		</Link>	
+	</div>
   )
 }
 
