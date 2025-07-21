@@ -4,3 +4,15 @@ $card-bg: white;
 $font-family-base: 'Roboto Condensed', sans-serif;
 
 @import '~bootstrap/scss/bootstrap.scss';
+
+.custom-form-control {
+    background-color:white;
+    border: 2px solid $primary;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+    
+}
+
+.custom-form-control:focus{
+    background-color:white;
+    box-shadow: 0 0 0 0.2rem rgba(0, 128, 0, 0.25);
+}

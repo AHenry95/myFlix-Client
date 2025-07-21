@@ -8,6 +8,7 @@ import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { ProfileView } from "../profile-view/profile-view";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -16,6 +17,7 @@ export const MainView = () => {
   const [ token, setToken ] = useState(storedToken ? storedToken : null);
   const [ movies, setMovies ] = useState([]);
   const [ error, setError ] = useState(null);
+  const [ userList, setUserList ] = useState(null);
 
   useEffect(() => {
     if (!token) {
@@ -25,20 +27,20 @@ export const MainView = () => {
     fetch('https://myflix-ah-72292705dfa8.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}` }
     })
-      .then((response) => response.json())
-      .then((data) => {
-        const moviesFromApi = data.map((movie) => {
-          return {
-            id: movie._id,
-            title: movie.Title,
-            director: movie.Director,
-            genre: movie.Genre,
-            description: movie.Description,
-            actors: movie.Actors,
-            releaseYear: movie.ReleaseYear,
-            image: movie.Image
-          };
-        });
+      	.then((response) => response.json())
+      	.then((data) => {
+        	const moviesFromApi = data.map((movie) => {
+				return {
+					id: movie._id,
+					title: movie.Title,
+					director: movie.Director,
+					genre: movie.Genre,
+					description: movie.Description,
+					actors: movie.Actors,
+					releaseYear: movie.ReleaseYear,
+					image: movie.Image
+				};
+       		 });
 
         setMovies(moviesFromApi);
       })
@@ -48,17 +50,24 @@ export const MainView = () => {
       });
   }, [token]);
 
-  // const similarMovies = selectedMovie ? movies.filter(movie => {
-  //   const movieIsSimilar = movie.genre.Name === selectedMovie.genre.Name;
-  //   const notSelectedMovie = movie.id !== selectedMovie.id;
-  //   return (notSelectedMovie && movieIsSimilar);
-  // }) : [];
+	const handleFavoriteUpdate = (updatedUser) => {
+		setUser(updatedUser);
+		localStorage.setItem('user', JSON.stringify(updatedUser));
+	}  
 
-//   similarMovies.map((movie) => {
-//                 return (
-//                   <Col key={movie.id} xs={5} sm={5} md={4} lg={3}>
-//                     <MovieCard movie={movie} onMovieClick={(newSelectedMovie) => setSelectedMovie(newSelectedMovie)} />
-//                   </Col>
+	const handleUserUpdate = (updatedUser) => {
+		setUser(updatedUser);
+		localStorage.setItem('user', JSON.stringify(updatedUser));
+	}
+
+	const handleLogout = () => {
+		setToken(null);
+		setUser(null);
+		localStorage.removeItem('token');
+		localStorage.removeItem('user');
+
+		setMovies([]);
+	}
 
   return (
     <BrowserRouter>
@@ -110,7 +119,13 @@ export const MainView = () => {
 							) : movies.length === 0 ? (
 								<Col>The list is empty!</Col>
 							) : (
-								<MovieView movies={movies} />
+								<MovieView 
+									movies={movies}
+									user={user}
+									token={token}
+									onFavoriteUpdate={handleFavoriteUpdate}
+									MovieCard={MovieCard}
+								/>
 							)}
 						</>
 					}
@@ -127,7 +142,12 @@ export const MainView = () => {
 								<>
 									{movies.map((movie) => (
 										<Col className="mb-4" key={movie.id} xs={6} sm={4} md={3} lg={2}>
-											<MovieCard movie={movie} />
+											<MovieCard 
+												movie={movie}
+												user={user}
+												token={token}
+												onFavoriteUpdate={handleFavoriteUpdate}
+											/>
 										</Col>
 									))}
 								</>
@@ -135,6 +155,26 @@ export const MainView = () => {
 						</>
 					}
 				/>
+				<Route
+					path="/users/:username"
+					element={
+						<>
+							{!user ? (
+								<Navigate to="/login" replace />
+							) : (
+								<Col>
+									<ProfileView 
+										token={token}
+										movies={movies}
+										onUserUpdate={handleUserUpdate}
+										MovieCard={MovieCard}
+										onLogout={handleLogout}
+									/>
+								</Col>
+							)}
+						</>
+					}
+				/>	
 			</Routes>
     	</Row>
 	</BrowserRouter>

@@ -13194,4 +13194,15 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+.custom-form-control {
+  background-color: #fff;
+  border: 2px solid green;
+  box-shadow: 0 0 0 1px #00000040;
+}
+
+.custom-form-control:focus {
+  background-color: #fff;
+  box-shadow: 0 0 0 .2rem #00800040;
+}
 /*# sourceMappingURL=myFlix-Client.9f367d21.css.map */
