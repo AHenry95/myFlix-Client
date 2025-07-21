@@ -37,7 +37,7 @@ export const SignupView = () => {
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} className="mt-3">
             <h3>Sign-Up:</h3>
             <Form.Group controlId="formName">
                 <Form.Label>Name</Form.Label>
@@ -46,6 +46,7 @@ export const SignupView = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
+                    className="custom-form-control"
                 />
             </Form.Group>
             <Form.Group controlId="formUsername">
@@ -56,6 +57,7 @@ export const SignupView = () => {
                     onChange={(e) => setUsername(e.target.value)}
                     required
                     minLength="5"
+                    className="custom-form-control"
                 />
             </Form.Group>
             <Form.Group controlId="formPassword">
@@ -66,6 +68,7 @@ export const SignupView = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     minLength="8"
+                    className="custom-form-control"
                 />
             </Form.Group>
             <Form.Group controlId="formEmail">
@@ -75,6 +78,7 @@ export const SignupView = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    className="custom-form-control"
                 />
             </Form.Group>
             <Form.Group controlId="formBirthdate">
@@ -83,9 +87,10 @@ export const SignupView = () => {
                     type="date"
                     value={birthdate}
                     onChange={(e) => setBirthdate(e.target.value)}
+                    className="custom-form-control"
                 />
             </Form.Group>
-            <Button className="mt-1" variant="primary" type="submit">Sign-Up</Button>
+            <Button className="mt-3" variant="primary" type="submit">Sign-Up</Button>
         </Form>
     );
 } 

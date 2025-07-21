@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form"; 
+import { PropTypes } from "prop-types";
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -23,7 +24,6 @@ export const LoginView = ({ onLoggedIn }) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log('Login response: ', data);
       if(data.user) {
         localStorage.setItem("user", JSON.stringify(data.user));
         localStorage.setItem("token", data.token);
@@ -47,6 +47,7 @@ export const LoginView = ({ onLoggedIn }) => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          className="custom-form-control"
         />
       </Form.Group>
       
@@ -57,9 +58,14 @@ export const LoginView = ({ onLoggedIn }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          className="custom-form-control"
         />
       </Form.Group>
       <Button className="mt-1" variant="primary" type="submit">Login</Button> 
     </Form>
   );
+};
+
+LoginView.PropTypes = {
+  onLoggedIn: PropTypes.func.isRequired
 };
