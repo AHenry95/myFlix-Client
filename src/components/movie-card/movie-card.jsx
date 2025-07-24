@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Card, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useState, useEffect } from "react";
 import "./movie-card.scss";
 
@@ -15,13 +15,7 @@ export const MovieCard = ({ movie, user, token, onFavoriteUpdate }) => {
 
 		const method = isFavorite ? 'DELETE' : 'POST';
 
-		const url = isFavorite 
-			? `https://myflix-ah-72292705dfa8.herokuapp.com/users/${user.Email}/${encodeURIComponent(movie.title)}` 
-			
-			: `https://myflix-ah-72292705dfa8.herokuapp.com/users/${user.Username}/movies/${movie.title}`
-		;
-
-		fetch(url, {
+		fetch(`https://myflix-ah-72292705dfa8.herokuapp.com/users/${user.Username}/movies/${movie.id}`, {
 			method: method,
 			headers: {
 				Authorization: `Bearer ${token}`,

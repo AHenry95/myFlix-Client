@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
-import { useParams } from "react-router";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router";
 import { Button, Row, Col, Card } from "react-bootstrap";
 import { useState } from "react";
 import "./movie-view.scss";
@@ -16,19 +15,19 @@ export const MovieView = ({ movies, user, token, onFavoriteUpdate, MovieCard }) 
 	const handleFavoriteClick = () => {
 		const method = isFavorite ? 'DELETE' : 'POST';
 
-		const url = isFavorite
-			? `https://myflix-ah-72292705dfa8.herokuapp.com/users/${user.Email}/${movie.title}`
-			: `https://myflix-ah-72292705dfa8.herokuapp.com/users/${user.Username}/movies/${movie.title}`
-		;
-
-		fetch(url, {
+		fetch(`https://myflix-ah-72292705dfa8.herokuapp.com/users/${user.Username}/movies/${movie.id}`, {
 			method: method,
 			headers: {
 				Authorization: `Bearer ${token}`,
 				"Content-Type": "application/json"
 			}
 		})
-			.then((response) => response.json())
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error(`HTTP error. Status: ${response.status}`);
+				}
+				return response.json();
+			})
 			.then((updatedUser) => {
 				setIsFavorite(!isFavorite);
 
