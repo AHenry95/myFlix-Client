@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
 import { Container, Row, Col , Card, Button, Modal, Alert, Form } from "react-bootstrap";
 import { PropTypes } from "prop-types";
 
