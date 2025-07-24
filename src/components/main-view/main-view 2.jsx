@@ -120,7 +120,7 @@ export const MainView = () => {
 		setSelectedGenre("");
 		setSelectedDirector("");
 		setSelectedYear("");
-		setSortBy("title");
+		setSortBy("");
 	};
 
   return (
@@ -212,7 +212,7 @@ export const MainView = () => {
 												<Button
 													variant="outline-secondary"
 													size="sm"
-													onClick={() => setShowFilters(!showFilters)}
+													onClick={( setShowFilters(!showFilters))}
 													className="d-flex align-items-center"
 												>
 													{showFilters ? (
@@ -225,138 +225,11 @@ export const MainView = () => {
 
 											{showFilters && (
 												<div className="p-3">
-													<Row className="align-items-end g-2">
-														{/* --- Movie search --- */}
-														<Col xs={12} sm={6} md={4} lg={3}>
-															<Form.Group className="mb-0">
-																<Form.Label className="small fw-semibold text-muted mb-1">Search Movies</Form.Label>
-																<Form.Control 
-																	type="text"
-																	placeholder="Enter Movie Title"
-																	value={searchTerm}
-																	onChange={(e) => setSearchTerm(e.target.value)}
-																	className="custom-form-control"
-																/>
-															</Form.Group>
-														</Col>
-
-														{/* --- Genre Filter --- */}
-														<Col xs={6} sm={6} md={4} lg={3}>
-															<Form.Group className="mb-0">
-																<Form.Label className="small fw-semibold text-muted mb-1">Genre</Form.Label>
-																<Form.Select
-																	value={selectedGenre}
-																	onChange={(e) => setSelectedGenre(e.target.value)}
-																	size="sm"
-																	className="custom-form-control"
-																>
-																	<option value="">All</option>
-																	{uniqueGenres.map((genre) => (
-																		<option key={genre} value={genre}>
-																			{genre}
-																		</option>
-																	))}
-																</Form.Select>
-															</Form.Group>
-														</Col>
-
-														{/* --- Director Filter --- */}
-														<Col xs={6} sm={6} md={4} lg={3}>
-															<Form.Group className="mb-0">
-																<Form.Label className="small fw-semibold text-muted mb-1">Genre</Form.Label>
-																<Form.Select
-																	value={selectedDirector}
-																	onChange={(e) => setSelectedDirector(e.target.value)}
-																	size="sm"
-																	className="custom-form-control"
-																>
-																	<option value="">All</option>
-																	{uniqueDirectors.map((director) => (
-																		<option key={director} value={director}>
-																			{director}
-																		</option>
-																	))}
-																</Form.Select>
-															</Form.Group>
-														</Col>
-
-														{/* --- Year Filter --- */}
-														<Col xs={6} sm={6} md={4} lg={3}>
-															<Form.Group className="mb-0">
-																<Form.Label className="small fw-semibold text-muted mb-1">Genre</Form.Label>
-																<Form.Select
-																	value={selectedYear}
-																	onChange={(e) => setSelectedYear(e.target.value)}
-																	size="sm"
-																	className="custom-form-control"
-																>
-																	<option value="">All</option>
-																	{uniqueYears.map((year) => (
-																		<option key={year} value={year}>
-																			{year}
-																		</option>
-																	))}
-																</Form.Select>
-															</Form.Group>
-														</Col>
-
-														{/* --- Sort Options --- */}
-														<Col xs={6} sm={6} md={4} lg={3}>
-															<Form.Group className="mb-0">
-																<Form.Label className="small fw-semibold text-muted mb-1">Genre</Form.Label>
-																<Form.Select
-																	value={sortBy}
-																	onChange={(e) => setSortBy(e.target.value)}
-																	size="sm"
-																	className="custom-form-control"
-																>
-																	<option value="title">Title (A-Z)</option>
-																	<option value="year">Release Year</option>
-																	<option value="director">Director (A-Z)</option>
-																</Form.Select>
-															</Form.Group>
-														</Col>
-
-														{/* --- Clear Button --- */}
-														<Col xs={6} sm={6} md={4} lg={3}>
-															<Button
-																variant="outline-secondary"
-																size="sm"
-																onClick={clearFilters}
-																className="w-100"
-															>
-																Clear All Filters
-															</Button>
-														</Col>
-													</Row>
+													<Row className="align-items-end g-2"></Row>
 												</div>
 											)}
 										</div>
 									</Col>
-
-									{/* --- Movie Grid --- */}
-									{filteredAndSortedMovies.length === 0 ? (
-										<Col xs={12} className="text-center">
-											<div className="py-5">
-												<h5 className="text-muted">No movies match your current filters</h5>
-												<p className="text-muted">Try adjusting your search criteria or clearing filters</p>
-												<Button variant="outline-primary" onClick={clearFilters}>
-													Reset Filters
-												</Button>
-											</div>
-										</Col>
-									) : (
-										filteredAndSortedMovies.map((movie) => (
-											<Col className="mb-4" key={movie.id} xs={6} sm={4} md={3} lg={2}>
-												<MovieCard
-													movie={movie}
-													user={user}
-													token={token}
-													onFavoriteUpdate={handleUserUpdate}
-												/>
-											</Col>
-										))
-									)}
 								</>
 							)}
 						</>
