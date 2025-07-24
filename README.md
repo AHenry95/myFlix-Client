@@ -31,7 +31,7 @@ myflix-client/
 
 This project is in the very early stages of devlopment, and currently includes the following components:
 
-* MainView - this displays a list of MovieCards from using data imported from movie_api.
+* MainView - this displays a list of MovieCards from using data imported from movie_api. Includes feature to search or sort through movies based on director.genre/release year.
 * MovieCard - These components display the titles and poster images of the movies in the databsse, and open the MovieView when clicked. Also allows users to add movies to their favorites list by clicking a heart icon.
 * MovieView - This view displays the movie's poster image, title, director, genre, description, a list of actors, and release year, as well as a list of MovieCards for similar movies (movies that have the same genre). Allows users to add the movie to their favorites list.
 * SignupView - Allows new users to create accounts and through the movie_api stores their data in the database. New users must provide their name, username, password, email, and may provide data of birth. 
@@ -41,9 +41,6 @@ This project is in the very early stages of devlopment, and currently includes t
 
 ## Planned Views and Features
 
-#### Main View
-* Allow users to filter movies with a search function
-* Allow users to filter/sort movies with different criteria
 
 #### Single Movie View
 * Allow users to access different views to view more information (i.e. will link to genre view, director view, and actor views for genre/director/actors from each movie)
