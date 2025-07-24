@@ -16778,7 +16778,7 @@ const MainView = ()=>{
                                             xs: 12,
                                             className: "mb-4",
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                                className: "bg-light border rounded-3 shadow-sm",
+                                                className: "bg-light border rounded-bottom shadow-sm",
                                                 children: [
                                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                                         className: "d-flex justify-content-between align-items-center p-3 border-bottom",

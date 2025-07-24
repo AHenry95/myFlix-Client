@@ -197,7 +197,7 @@ export const MainView = () => {
 							) : (
 								<>
 									<Col xs={12} className="mb-4">
-										<div className="bg-light border rounded-3 shadow-sm">
+										<div className="bg-light border rounded-bottom shadow-sm">
 											{/* Filter Toggler */}
 											<div className = "d-flex justify-content-between align-items-center p-3 border-bottom">
 												<div className="d-flex align-items-center">
