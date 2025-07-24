@@ -26,7 +26,7 @@ export const MainView = () => {
   const [ selectedGenre, setSelectedGenre ] = useState("");
   const [ selectedDirector, setSelectedDirector ] = useState("");
   const [ selectedYear, setSelectedYear] = useState("");
-  const [ sortBy, setSortBy ] = useState(""); 
+  const [ sortBy, setSortBy ] = useState("title"); 
 
   useEffect(() => {
     if (!token) {
@@ -93,7 +93,7 @@ export const MainView = () => {
 			const matchesSearch = movie.title.toLowerCase().includes(searchTerm.toLowerCase());
 			const matchesGenre = !selectedGenre || movie.genre.Name === selectedGenre;
 			const matchesDirector = !selectedDirector || movie.director.Name === selectedDirector;
-			const matchesYear = !selectedYear || movie.releaseYEar === selectedYear;
+			const matchesYear = !selectedYear || movie.releaseYear === selectedYear;
 
 			return matchesSearch && matchesGenre && matchesDirector && matchesYear;
 		});
@@ -104,7 +104,7 @@ export const MainView = () => {
 					return a.title.localeCompare(b.title);
 				case "year":
 					return b.releaseYear - a.releaseYear;
-				case  "director":
+				case "director":
 					return a.director.Name.localeCompare(b.director.Name);
 				default:
 					return 0;
@@ -113,6 +113,14 @@ export const MainView = () => {
 		
 		return filtered;
 	}, [movies, searchTerm, selectedGenre, selectedDirector, selectedYear, sortBy]);
+
+	const clearFilters = () => {
+		setSearchTerm("");
+		setSelectedGenre("");
+		setSelectedDirector("");
+		setSelectedYear("");
+		setSortBy("");
+	};
 
   return (
     <BrowserRouter>
