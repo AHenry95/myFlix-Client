@@ -16546,6 +16546,7 @@ const MainView = ()=>{
     const [selectedDirector, setSelectedDirector] = (0, _react.useState)("");
     const [selectedYear, setSelectedYear] = (0, _react.useState)("");
     const [sortBy, setSortBy] = (0, _react.useState)("title");
+    const [showFilters, setShowFilters] = (0, _react.useState)(false);
     (0, _react.useEffect)(()=>{
         if (!token) return;
         fetch('https://myflix-ah-72292705dfa8.herokuapp.com/movies', {
@@ -16610,7 +16611,7 @@ const MainView = ()=>{
     ]);
     const filteredAndSortedMovies = (0, _react.useMemo)(()=>{
         let filtered = movies.filter((movie)=>{
-            const matchesSearch = movie.title.toLowerCase().includes(searchTerm.toLowerCase());
+            const matchesSearch = movie.title.toLowerCase().startsWith(searchTerm.toLowerCase());
             const matchesGenre = !selectedGenre || movie.genre.Name === selectedGenre;
             const matchesDirector = !selectedDirector || movie.director.Name === selectedDirector;
             const matchesYear = !selectedYear || movie.releaseYear === selectedYear;
@@ -16642,7 +16643,7 @@ const MainView = ()=>{
         setSelectedGenre("");
         setSelectedDirector("");
         setSelectedYear("");
-        setSortBy("");
+        setSortBy("title");
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouter.BrowserRouter), {
         children: [
@@ -16656,7 +16657,7 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 127,
+                lineNumber: 128,
                 columnNumber: 3
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
@@ -16670,24 +16671,24 @@ const MainView = ()=>{
                                     to: "/"
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 140,
+                                    lineNumber: 141,
                                     columnNumber: 9
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     md: 5,
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 143,
+                                        lineNumber: 144,
                                         columnNumber: 10
                                     }, void 0)
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 142,
+                                    lineNumber: 143,
                                     columnNumber: 9
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 135,
+                            lineNumber: 136,
                             columnNumber: 5
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouter.Route), {
@@ -16697,7 +16698,7 @@ const MainView = ()=>{
                                     to: "/"
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 154,
+                                    lineNumber: 155,
                                     columnNumber: 9
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     md: 5,
@@ -16708,18 +16709,18 @@ const MainView = ()=>{
                                         }
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 157,
+                                        lineNumber: 158,
                                         columnNumber: 10
                                     }, void 0)
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 156,
+                                    lineNumber: 157,
                                     columnNumber: 9
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 149,
+                            lineNumber: 150,
                             columnNumber: 5
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouter.Route), {
@@ -16730,13 +16731,13 @@ const MainView = ()=>{
                                     replace: true
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 172,
+                                    lineNumber: 173,
                                     columnNumber: 9
                                 }, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     children: "The list is empty!"
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 174,
+                                    lineNumber: 175,
                                     columnNumber: 9
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
                                     movies: movies,
@@ -16746,13 +16747,13 @@ const MainView = ()=>{
                                     MovieCard: (0, _movieCard.MovieCard)
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 176,
+                                    lineNumber: 177,
                                     columnNumber: 9
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 167,
+                            lineNumber: 168,
                             columnNumber: 5
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouter.Route), {
@@ -16763,348 +16764,396 @@ const MainView = ()=>{
                                     replace: true
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 193,
+                                    lineNumber: 194,
                                     columnNumber: 9
                                 }, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     children: "The list is empty!"
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 195,
+                                    lineNumber: 196,
                                     columnNumber: 9
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                     children: [
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cardDefault.default), {
+                                            xs: 12,
+                                            className: "mb-4",
+                                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                                className: "bg-light border rounded-3 shadow-sm",
                                                 children: [
-                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cardDefault.default).Header, {
-                                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h5", {
-                                                            className: "mb-0",
-                                                            children: "Filter & Sort Movies"
-                                                        }, void 0, false, {
-                                                            fileName: "src/components/main-view/main-view.jsx",
-                                                            lineNumber: 202,
-                                                            columnNumber: 13
-                                                        }, void 0)
-                                                    }, void 0, false, {
-                                                        fileName: "src/components/main-view/main-view.jsx",
-                                                        lineNumber: 201,
-                                                        columnNumber: 12
-                                                    }, void 0),
-                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cardDefault.default).Body, {
+                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                                        className: "d-flex justify-content-between align-items-center p-3 border-bottom",
                                                         children: [
-                                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
+                                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                                                className: "d-flex align-items-center",
                                                                 children: [
-                                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                                                        md: 6,
-                                                                        lg: 3,
-                                                                        className: "mb-3",
-                                                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
-                                                                            children: [
-                                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
-                                                                                    children: "Search"
-                                                                                }, void 0, false, {
-                                                                                    fileName: "src/components/main-view/main-view.jsx",
-                                                                                    lineNumber: 208,
-                                                                                    columnNumber: 16
-                                                                                }, void 0),
-                                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
-                                                                                    type: "text",
-                                                                                    placeholder: "Enter movie title",
-                                                                                    value: searchTerm,
-                                                                                    onChange: (e)=>setSearchTerm(e.target.value),
-                                                                                    className: "custom-form-control"
-                                                                                }, void 0, false, {
-                                                                                    fileName: "src/components/main-view/main-view.jsx",
-                                                                                    lineNumber: 209,
-                                                                                    columnNumber: 16
-                                                                                }, void 0)
-                                                                            ]
-                                                                        }, void 0, true, {
-                                                                            fileName: "src/components/main-view/main-view.jsx",
-                                                                            lineNumber: 207,
-                                                                            columnNumber: 15
-                                                                        }, void 0)
+                                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h6", {
+                                                                        className: "mb-0 me-3",
+                                                                        children: "Filter & Sort"
                                                                     }, void 0, false, {
                                                                         fileName: "src/components/main-view/main-view.jsx",
-                                                                        lineNumber: 206,
+                                                                        lineNumber: 204,
                                                                         columnNumber: 14
                                                                     }, void 0),
-                                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                                                        md: 6,
-                                                                        lg: 2,
-                                                                        className: "mb-3",
-                                                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
-                                                                            children: [
-                                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
-                                                                                    children: "Genre"
-                                                                                }, void 0, false, {
-                                                                                    fileName: "src/components/main-view/main-view.jsx",
-                                                                                    lineNumber: 222,
-                                                                                    columnNumber: 16
-                                                                                }, void 0),
-                                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Select, {
-                                                                                    value: selectedGenre,
-                                                                                    onChange: (e)=>setSelectedGenre(e.target.value),
-                                                                                    className: "custom-form-control",
-                                                                                    children: [
-                                                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                                                                            value: "",
-                                                                                            children: "All Genres"
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "src/components/main-view/main-view.jsx",
-                                                                                            lineNumber: 228,
-                                                                                            columnNumber: 17
-                                                                                        }, void 0),
-                                                                                        uniqueGenres.map((genre)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                                                                                value: genre,
-                                                                                                children: genre
-                                                                                            }, genre, false, {
-                                                                                                fileName: "src/components/main-view/main-view.jsx",
-                                                                                                lineNumber: 230,
-                                                                                                columnNumber: 18
-                                                                                            }, void 0))
-                                                                                    ]
-                                                                                }, void 0, true, {
-                                                                                    fileName: "src/components/main-view/main-view.jsx",
-                                                                                    lineNumber: 223,
-                                                                                    columnNumber: 16
-                                                                                }, void 0)
-                                                                            ]
-                                                                        }, void 0, true, {
-                                                                            fileName: "src/components/main-view/main-view.jsx",
-                                                                            lineNumber: 221,
-                                                                            columnNumber: 15
-                                                                        }, void 0)
-                                                                    }, void 0, false, {
+                                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("small", {
+                                                                        className: "text-muted",
+                                                                        children: [
+                                                                            filteredAndSortedMovies.length,
+                                                                            " of ",
+                                                                            movies.length,
+                                                                            " movies",
+                                                                            (searchTerm || selectedGenre || selectedDirector || selectedYear || sortBy !== "title") && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                                                                className: "badge bg-primary ms-2",
+                                                                                children: "Filtered"
+                                                                            }, void 0, false, {
+                                                                                fileName: "src/components/main-view/main-view.jsx",
+                                                                                lineNumber: 208,
+                                                                                columnNumber: 16
+                                                                            }, void 0)
+                                                                        ]
+                                                                    }, void 0, true, {
                                                                         fileName: "src/components/main-view/main-view.jsx",
-                                                                        lineNumber: 220,
-                                                                        columnNumber: 14
-                                                                    }, void 0),
-                                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                                                        md: 6,
-                                                                        lg: 2,
-                                                                        className: "mb-3",
-                                                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
-                                                                            children: [
-                                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
-                                                                                    children: "Director"
-                                                                                }, void 0, false, {
-                                                                                    fileName: "src/components/main-view/main-view.jsx",
-                                                                                    lineNumber: 241,
-                                                                                    columnNumber: 16
-                                                                                }, void 0),
-                                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Select, {
-                                                                                    value: selectedDirector,
-                                                                                    onChange: (e)=>setSelectedDirector(e.target.value),
-                                                                                    className: "custom-form-control",
-                                                                                    children: [
-                                                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                                                                            value: "",
-                                                                                            children: "All Directors"
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "src/components/main-view/main-view.jsx",
-                                                                                            lineNumber: 247,
-                                                                                            columnNumber: 17
-                                                                                        }, void 0),
-                                                                                        uniqueDirectors.map((director)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                                                                                value: director,
-                                                                                                children: director
-                                                                                            }, director, false, {
-                                                                                                fileName: "src/components/main-view/main-view.jsx",
-                                                                                                lineNumber: 249,
-                                                                                                columnNumber: 18
-                                                                                            }, void 0))
-                                                                                    ]
-                                                                                }, void 0, true, {
-                                                                                    fileName: "src/components/main-view/main-view.jsx",
-                                                                                    lineNumber: 242,
-                                                                                    columnNumber: 16
-                                                                                }, void 0)
-                                                                            ]
-                                                                        }, void 0, true, {
-                                                                            fileName: "src/components/main-view/main-view.jsx",
-                                                                            lineNumber: 240,
-                                                                            columnNumber: 15
-                                                                        }, void 0)
-                                                                    }, void 0, false, {
-                                                                        fileName: "src/components/main-view/main-view.jsx",
-                                                                        lineNumber: 239,
-                                                                        columnNumber: 14
-                                                                    }, void 0),
-                                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                                                        md: 6,
-                                                                        lg: 2,
-                                                                        className: "mb-3",
-                                                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
-                                                                            children: [
-                                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
-                                                                                    children: "Release Year"
-                                                                                }, void 0, false, {
-                                                                                    fileName: "src/components/main-view/main-view.jsx",
-                                                                                    lineNumber: 260,
-                                                                                    columnNumber: 16
-                                                                                }, void 0),
-                                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Select, {
-                                                                                    value: selectedYear,
-                                                                                    onChange: (e)=>setSelectedYear(e.target.value),
-                                                                                    className: "custom-form-control",
-                                                                                    children: [
-                                                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                                                                            value: "",
-                                                                                            children: "All Years"
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "src/components/main-view/main-view.jsx",
-                                                                                            lineNumber: 266,
-                                                                                            columnNumber: 17
-                                                                                        }, void 0),
-                                                                                        uniqueYears.map((year)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                                                                                value: year,
-                                                                                                children: year
-                                                                                            }, year, false, {
-                                                                                                fileName: "src/components/main-view/main-view.jsx",
-                                                                                                lineNumber: 268,
-                                                                                                columnNumber: 18
-                                                                                            }, void 0))
-                                                                                    ]
-                                                                                }, void 0, true, {
-                                                                                    fileName: "src/components/main-view/main-view.jsx",
-                                                                                    lineNumber: 261,
-                                                                                    columnNumber: 16
-                                                                                }, void 0)
-                                                                            ]
-                                                                        }, void 0, true, {
-                                                                            fileName: "src/components/main-view/main-view.jsx",
-                                                                            lineNumber: 259,
-                                                                            columnNumber: 15
-                                                                        }, void 0)
-                                                                    }, void 0, false, {
-                                                                        fileName: "src/components/main-view/main-view.jsx",
-                                                                        lineNumber: 258,
-                                                                        columnNumber: 14
-                                                                    }, void 0),
-                                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                                                        md: 6,
-                                                                        lg: 2,
-                                                                        className: "mb-3",
-                                                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
-                                                                            children: [
-                                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
-                                                                                    children: "Sort By"
-                                                                                }, void 0, false, {
-                                                                                    fileName: "src/components/main-view/main-view.jsx",
-                                                                                    lineNumber: 279,
-                                                                                    columnNumber: 16
-                                                                                }, void 0),
-                                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Select, {
-                                                                                    value: sortBy,
-                                                                                    onChange: (e)=>setSortBy(e.target.value),
-                                                                                    className: "custom-form-control",
-                                                                                    children: [
-                                                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                                                                            value: "title",
-                                                                                            children: "Title (A-Z)"
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "src/components/main-view/main-view.jsx",
-                                                                                            lineNumber: 285,
-                                                                                            columnNumber: 17
-                                                                                        }, void 0),
-                                                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                                                                            value: "year",
-                                                                                            children: "Release Year"
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "src/components/main-view/main-view.jsx",
-                                                                                            lineNumber: 286,
-                                                                                            columnNumber: 17
-                                                                                        }, void 0),
-                                                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                                                                            value: "director",
-                                                                                            children: "Director (A-Z)"
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "src/components/main-view/main-view.jsx",
-                                                                                            lineNumber: 287,
-                                                                                            columnNumber: 17
-                                                                                        }, void 0)
-                                                                                    ]
-                                                                                }, void 0, true, {
-                                                                                    fileName: "src/components/main-view/main-view.jsx",
-                                                                                    lineNumber: 280,
-                                                                                    columnNumber: 16
-                                                                                }, void 0)
-                                                                            ]
-                                                                        }, void 0, true, {
-                                                                            fileName: "src/components/main-view/main-view.jsx",
-                                                                            lineNumber: 278,
-                                                                            columnNumber: 15
-                                                                        }, void 0)
-                                                                    }, void 0, false, {
-                                                                        fileName: "src/components/main-view/main-view.jsx",
-                                                                        lineNumber: 277,
-                                                                        columnNumber: 14
-                                                                    }, void 0),
-                                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                                                        md: 6,
-                                                                        lg: 2,
-                                                                        className: "mb-3 d-flex align-items-end",
-                                                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
-                                                                            variant: "outline-secondary",
-                                                                            onClick: clearFilters,
-                                                                            className: "w-100",
-                                                                            children: "Clear"
-                                                                        }, void 0, false, {
-                                                                            fileName: "src/components/main-view/main-view.jsx",
-                                                                            lineNumber: 293,
-                                                                            columnNumber: 15
-                                                                        }, void 0)
-                                                                    }, void 0, false, {
-                                                                        fileName: "src/components/main-view/main-view.jsx",
-                                                                        lineNumber: 292,
+                                                                        lineNumber: 205,
                                                                         columnNumber: 14
                                                                     }, void 0)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "src/components/main-view/main-view.jsx",
-                                                                lineNumber: 205,
+                                                                lineNumber: 203,
                                                                 columnNumber: 13
                                                             }, void 0),
-                                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
-                                                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("small", {
-                                                                        className: "text-muted",
+                                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                                                                variant: "outline-secondary",
+                                                                size: "sm",
+                                                                onClick: ()=>setShowFilters(!showFilters),
+                                                                className: "d-flex align-items-center",
+                                                                children: showFilters ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                                                    className: "me-1",
+                                                                    children: "Hide"
+                                                                }, void 0, false, {
+                                                                    fileName: "src/components/main-view/main-view.jsx",
+                                                                    lineNumber: 219,
+                                                                    columnNumber: 15
+                                                                }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                                                    className: "me-1",
+                                                                    children: "Show"
+                                                                }, void 0, false, {
+                                                                    fileName: "src/components/main-view/main-view.jsx",
+                                                                    lineNumber: 221,
+                                                                    columnNumber: 15
+                                                                }, void 0)
+                                                            }, void 0, false, {
+                                                                fileName: "src/components/main-view/main-view.jsx",
+                                                                lineNumber: 212,
+                                                                columnNumber: 13
+                                                            }, void 0)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "src/components/main-view/main-view.jsx",
+                                                        lineNumber: 202,
+                                                        columnNumber: 12
+                                                    }, void 0),
+                                                    showFilters && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                                        className: "p-3",
+                                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
+                                                            className: "align-items-end g-2",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                                                                    xs: 12,
+                                                                    sm: 6,
+                                                                    md: 4,
+                                                                    lg: 3,
+                                                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
+                                                                        className: "mb-0",
                                                                         children: [
-                                                                            "Showing ",
-                                                                            filteredAndSortedMovies.length,
-                                                                            " of ",
-                                                                            movies.length,
-                                                                            " movies",
-                                                                            (searchTerm || selectedGenre || selectedDirector || selectedYear) && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                                                                                className: "ms-2",
-                                                                                children: "(filtered)"
+                                                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
+                                                                                className: "small fw-semibold text-muted mb-1",
+                                                                                children: "Search Movies"
                                                                             }, void 0, false, {
                                                                                 fileName: "src/components/main-view/main-view.jsx",
-                                                                                lineNumber: 308,
+                                                                                lineNumber: 232,
+                                                                                columnNumber: 17
+                                                                            }, void 0),
+                                                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
+                                                                                type: "text",
+                                                                                placeholder: "Enter Movie Title",
+                                                                                value: searchTerm,
+                                                                                onChange: (e)=>setSearchTerm(e.target.value),
+                                                                                className: "custom-form-control"
+                                                                            }, void 0, false, {
+                                                                                fileName: "src/components/main-view/main-view.jsx",
+                                                                                lineNumber: 233,
+                                                                                columnNumber: 17
+                                                                            }, void 0)
+                                                                        ]
+                                                                    }, void 0, true, {
+                                                                        fileName: "src/components/main-view/main-view.jsx",
+                                                                        lineNumber: 231,
+                                                                        columnNumber: 16
+                                                                    }, void 0)
+                                                                }, void 0, false, {
+                                                                    fileName: "src/components/main-view/main-view.jsx",
+                                                                    lineNumber: 230,
+                                                                    columnNumber: 15
+                                                                }, void 0),
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                                                                    xs: 6,
+                                                                    sm: 6,
+                                                                    md: 4,
+                                                                    lg: 3,
+                                                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
+                                                                        className: "mb-0",
+                                                                        children: [
+                                                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
+                                                                                className: "small fw-semibold text-muted mb-1",
+                                                                                children: "Genre"
+                                                                            }, void 0, false, {
+                                                                                fileName: "src/components/main-view/main-view.jsx",
+                                                                                lineNumber: 246,
+                                                                                columnNumber: 17
+                                                                            }, void 0),
+                                                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Select, {
+                                                                                value: selectedGenre,
+                                                                                onChange: (e)=>setSelectedGenre(e.target.value),
+                                                                                size: "sm",
+                                                                                className: "custom-form-control",
+                                                                                children: [
+                                                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                                                                        value: "",
+                                                                                        children: "All"
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "src/components/main-view/main-view.jsx",
+                                                                                        lineNumber: 253,
+                                                                                        columnNumber: 18
+                                                                                    }, void 0),
+                                                                                    uniqueGenres.map((genre)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                                                                            value: genre,
+                                                                                            children: genre
+                                                                                        }, genre, false, {
+                                                                                            fileName: "src/components/main-view/main-view.jsx",
+                                                                                            lineNumber: 255,
+                                                                                            columnNumber: 19
+                                                                                        }, void 0))
+                                                                                ]
+                                                                            }, void 0, true, {
+                                                                                fileName: "src/components/main-view/main-view.jsx",
+                                                                                lineNumber: 247,
+                                                                                columnNumber: 17
+                                                                            }, void 0)
+                                                                        ]
+                                                                    }, void 0, true, {
+                                                                        fileName: "src/components/main-view/main-view.jsx",
+                                                                        lineNumber: 245,
+                                                                        columnNumber: 16
+                                                                    }, void 0)
+                                                                }, void 0, false, {
+                                                                    fileName: "src/components/main-view/main-view.jsx",
+                                                                    lineNumber: 244,
+                                                                    columnNumber: 15
+                                                                }, void 0),
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                                                                    xs: 6,
+                                                                    sm: 6,
+                                                                    md: 4,
+                                                                    lg: 3,
+                                                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
+                                                                        className: "mb-0",
+                                                                        children: [
+                                                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
+                                                                                className: "small fw-semibold text-muted mb-1",
+                                                                                children: "Genre"
+                                                                            }, void 0, false, {
+                                                                                fileName: "src/components/main-view/main-view.jsx",
+                                                                                lineNumber: 266,
+                                                                                columnNumber: 17
+                                                                            }, void 0),
+                                                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Select, {
+                                                                                value: selectedDirector,
+                                                                                onChange: (e)=>setSelectedDirector(e.target.value),
+                                                                                size: "sm",
+                                                                                className: "custom-form-control",
+                                                                                children: [
+                                                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                                                                        value: "",
+                                                                                        children: "All"
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "src/components/main-view/main-view.jsx",
+                                                                                        lineNumber: 273,
+                                                                                        columnNumber: 18
+                                                                                    }, void 0),
+                                                                                    uniqueDirectors.map((director)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                                                                            value: director,
+                                                                                            children: director
+                                                                                        }, director, false, {
+                                                                                            fileName: "src/components/main-view/main-view.jsx",
+                                                                                            lineNumber: 275,
+                                                                                            columnNumber: 19
+                                                                                        }, void 0))
+                                                                                ]
+                                                                            }, void 0, true, {
+                                                                                fileName: "src/components/main-view/main-view.jsx",
+                                                                                lineNumber: 267,
+                                                                                columnNumber: 17
+                                                                            }, void 0)
+                                                                        ]
+                                                                    }, void 0, true, {
+                                                                        fileName: "src/components/main-view/main-view.jsx",
+                                                                        lineNumber: 265,
+                                                                        columnNumber: 16
+                                                                    }, void 0)
+                                                                }, void 0, false, {
+                                                                    fileName: "src/components/main-view/main-view.jsx",
+                                                                    lineNumber: 264,
+                                                                    columnNumber: 15
+                                                                }, void 0),
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                                                                    xs: 6,
+                                                                    sm: 6,
+                                                                    md: 4,
+                                                                    lg: 3,
+                                                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
+                                                                        className: "mb-0",
+                                                                        children: [
+                                                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
+                                                                                className: "small fw-semibold text-muted mb-1",
+                                                                                children: "Genre"
+                                                                            }, void 0, false, {
+                                                                                fileName: "src/components/main-view/main-view.jsx",
+                                                                                lineNumber: 286,
+                                                                                columnNumber: 17
+                                                                            }, void 0),
+                                                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Select, {
+                                                                                value: selectedYear,
+                                                                                onChange: (e)=>setSelectedYear(e.target.value),
+                                                                                size: "sm",
+                                                                                className: "custom-form-control",
+                                                                                children: [
+                                                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                                                                        value: "",
+                                                                                        children: "All"
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "src/components/main-view/main-view.jsx",
+                                                                                        lineNumber: 293,
+                                                                                        columnNumber: 18
+                                                                                    }, void 0),
+                                                                                    uniqueYears.map((year)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                                                                            value: year,
+                                                                                            children: year
+                                                                                        }, year, false, {
+                                                                                            fileName: "src/components/main-view/main-view.jsx",
+                                                                                            lineNumber: 295,
+                                                                                            columnNumber: 19
+                                                                                        }, void 0))
+                                                                                ]
+                                                                            }, void 0, true, {
+                                                                                fileName: "src/components/main-view/main-view.jsx",
+                                                                                lineNumber: 287,
+                                                                                columnNumber: 17
+                                                                            }, void 0)
+                                                                        ]
+                                                                    }, void 0, true, {
+                                                                        fileName: "src/components/main-view/main-view.jsx",
+                                                                        lineNumber: 285,
+                                                                        columnNumber: 16
+                                                                    }, void 0)
+                                                                }, void 0, false, {
+                                                                    fileName: "src/components/main-view/main-view.jsx",
+                                                                    lineNumber: 284,
+                                                                    columnNumber: 15
+                                                                }, void 0),
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                                                                    xs: 6,
+                                                                    sm: 6,
+                                                                    md: 4,
+                                                                    lg: 3,
+                                                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
+                                                                        className: "mb-0",
+                                                                        children: [
+                                                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
+                                                                                className: "small fw-semibold text-muted mb-1",
+                                                                                children: "Genre"
+                                                                            }, void 0, false, {
+                                                                                fileName: "src/components/main-view/main-view.jsx",
+                                                                                lineNumber: 306,
+                                                                                columnNumber: 17
+                                                                            }, void 0),
+                                                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Select, {
+                                                                                value: sortBy,
+                                                                                onChange: (e)=>setSortBy(e.target.value),
+                                                                                size: "sm",
+                                                                                className: "custom-form-control",
+                                                                                children: [
+                                                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                                                                        value: "title",
+                                                                                        children: "Title (A-Z)"
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "src/components/main-view/main-view.jsx",
+                                                                                        lineNumber: 313,
+                                                                                        columnNumber: 18
+                                                                                    }, void 0),
+                                                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                                                                        value: "year",
+                                                                                        children: "Release Year"
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "src/components/main-view/main-view.jsx",
+                                                                                        lineNumber: 314,
+                                                                                        columnNumber: 18
+                                                                                    }, void 0),
+                                                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                                                                        value: "director",
+                                                                                        children: "Director (A-Z)"
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "src/components/main-view/main-view.jsx",
+                                                                                        lineNumber: 315,
+                                                                                        columnNumber: 18
+                                                                                    }, void 0)
+                                                                                ]
+                                                                            }, void 0, true, {
+                                                                                fileName: "src/components/main-view/main-view.jsx",
+                                                                                lineNumber: 307,
                                                                                 columnNumber: 17
                                                                             }, void 0)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "src/components/main-view/main-view.jsx",
                                                                         lineNumber: 305,
-                                                                        columnNumber: 15
+                                                                        columnNumber: 16
                                                                     }, void 0)
                                                                 }, void 0, false, {
                                                                     fileName: "src/components/main-view/main-view.jsx",
                                                                     lineNumber: 304,
-                                                                    columnNumber: 14
+                                                                    columnNumber: 15
+                                                                }, void 0),
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                                                                    xs: 6,
+                                                                    sm: 6,
+                                                                    md: 4,
+                                                                    lg: 3,
+                                                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                                                                        variant: "outline-secondary",
+                                                                        size: "sm",
+                                                                        onClick: clearFilters,
+                                                                        className: "w-100",
+                                                                        children: "Clear All Filters"
+                                                                    }, void 0, false, {
+                                                                        fileName: "src/components/main-view/main-view.jsx",
+                                                                        lineNumber: 322,
+                                                                        columnNumber: 16
+                                                                    }, void 0)
+                                                                }, void 0, false, {
+                                                                    fileName: "src/components/main-view/main-view.jsx",
+                                                                    lineNumber: 321,
+                                                                    columnNumber: 15
                                                                 }, void 0)
-                                                            }, void 0, false, {
-                                                                fileName: "src/components/main-view/main-view.jsx",
-                                                                lineNumber: 303,
-                                                                columnNumber: 13
-                                                            }, void 0)
-                                                        ]
-                                                    }, void 0, true, {
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "src/components/main-view/main-view.jsx",
+                                                            lineNumber: 228,
+                                                            columnNumber: 14
+                                                        }, void 0)
+                                                    }, void 0, false, {
                                                         fileName: "src/components/main-view/main-view.jsx",
-                                                        lineNumber: 204,
-                                                        columnNumber: 12
+                                                        lineNumber: 227,
+                                                        columnNumber: 13
                                                     }, void 0)
                                                 ]
                                             }, void 0, true, {
@@ -17120,16 +17169,43 @@ const MainView = ()=>{
                                         filteredAndSortedMovies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                             xs: 12,
                                             className: "text-center",
-                                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                                children: "No movies match your current filters. Try adjusting your search criteria."
-                                            }, void 0, false, {
+                                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                                className: "py-5",
+                                                children: [
+                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h5", {
+                                                        className: "text-muted",
+                                                        children: "No movies match your current filters"
+                                                    }, void 0, false, {
+                                                        fileName: "src/components/main-view/main-view.jsx",
+                                                        lineNumber: 341,
+                                                        columnNumber: 13
+                                                    }, void 0),
+                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                                        className: "text-muted",
+                                                        children: "Try adjusting your search criteria or clearing filters"
+                                                    }, void 0, false, {
+                                                        fileName: "src/components/main-view/main-view.jsx",
+                                                        lineNumber: 342,
+                                                        columnNumber: 13
+                                                    }, void 0),
+                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                                                        variant: "outline-primary",
+                                                        onClick: clearFilters,
+                                                        children: "Reset Filters"
+                                                    }, void 0, false, {
+                                                        fileName: "src/components/main-view/main-view.jsx",
+                                                        lineNumber: 343,
+                                                        columnNumber: 13
+                                                    }, void 0)
+                                                ]
+                                            }, void 0, true, {
                                                 fileName: "src/components/main-view/main-view.jsx",
-                                                lineNumber: 320,
+                                                lineNumber: 340,
                                                 columnNumber: 12
                                             }, void 0)
                                         }, void 0, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
-                                            lineNumber: 319,
+                                            lineNumber: 339,
                                             columnNumber: 11
                                         }, void 0) : filteredAndSortedMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                                 className: "mb-4",
@@ -17144,12 +17220,12 @@ const MainView = ()=>{
                                                     onFavoriteUpdate: handleUserUpdate
                                                 }, void 0, false, {
                                                     fileName: "src/components/main-view/main-view.jsx",
-                                                    lineNumber: 325,
+                                                    lineNumber: 351,
                                                     columnNumber: 13
                                                 }, void 0)
                                             }, movie.id, false, {
                                                 fileName: "src/components/main-view/main-view.jsx",
-                                                lineNumber: 324,
+                                                lineNumber: 350,
                                                 columnNumber: 12
                                             }, void 0))
                                     ]
@@ -17157,7 +17233,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 188,
+                            lineNumber: 189,
                             columnNumber: 5
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouter.Route), {
@@ -17168,7 +17244,7 @@ const MainView = ()=>{
                                     replace: true
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 344,
+                                    lineNumber: 370,
                                     columnNumber: 9
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileView.ProfileView), {
@@ -17179,39 +17255,39 @@ const MainView = ()=>{
                                         onLogout: handleLogout
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 347,
+                                        lineNumber: 373,
                                         columnNumber: 10
                                     }, void 0)
                                 }, void 0, false, {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 346,
+                                    lineNumber: 372,
                                     columnNumber: 9
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 339,
+                            lineNumber: 365,
                             columnNumber: 5
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 134,
+                    lineNumber: 135,
                     columnNumber: 4
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 133,
-                columnNumber: 8
+                lineNumber: 134,
+                columnNumber: 3
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 126,
-        columnNumber: 5
+        lineNumber: 127,
+        columnNumber: 2
     }, undefined);
 };
-_s(MainView, "SHtgnt3s0bbHf6Yo4V/zwM3qS0A=");
+_s(MainView, "txSZ+UoRDgTNyVn4QJlUjFmzJs8=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");

@@ -27,18 +27,19 @@ export const MainView = () => {
   const [ selectedDirector, setSelectedDirector ] = useState("");
   const [ selectedYear, setSelectedYear] = useState("");
   const [ sortBy, setSortBy ] = useState("title"); 
+  const [ showFilters, setShowFilters ] = useState(false);
 
   useEffect(() => {
-    if (!token) {
-      return
-    }
+	if (!token) {
+	  return
+	}
 
-    fetch('https://myflix-ah-72292705dfa8.herokuapp.com/movies', {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      	.then((response) => response.json())
-      	.then((data) => {
-        	const moviesFromApi = data.map((movie) => {
+	fetch('https://myflix-ah-72292705dfa8.herokuapp.com/movies', {
+	  headers: { Authorization: `Bearer ${token}` }
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			const moviesFromApi = data.map((movie) => {
 				return {
 					id: movie._id,
 					title: movie.Title,
@@ -49,14 +50,14 @@ export const MainView = () => {
 					releaseYear: movie.ReleaseYear,
 					image: movie.Image
 				};
-       		 });
+			 });
 
-        setMovies(moviesFromApi);
-      })
-      .catch((error) => {
-        console.error('Error fetching movies', error);
-        setError('Failed to load movies. Please try again later');
-      });
+		setMovies(moviesFromApi);
+	  })
+	  .catch((error) => {
+		console.error('Error fetching movies', error);
+		setError('Failed to load movies. Please try again later');
+	  });
   }, [token]);
 
 	const handleUserUpdate = (updatedUser) => {
@@ -90,7 +91,7 @@ export const MainView = () => {
 
 	const filteredAndSortedMovies = useMemo(() => {
 		let filtered = movies.filter(movie => {
-			const matchesSearch = movie.title.toLowerCase().includes(searchTerm.toLowerCase());
+			const matchesSearch = movie.title.toLowerCase().startsWith(searchTerm.toLowerCase());
 			const matchesGenre = !selectedGenre || movie.genre.Name === selectedGenre;
 			const matchesDirector = !selectedDirector || movie.director.Name === selectedDirector;
 			const matchesYear = !selectedYear || movie.releaseYear === selectedYear;
@@ -119,18 +120,18 @@ export const MainView = () => {
 		setSelectedGenre("");
 		setSelectedDirector("");
 		setSelectedYear("");
-		setSortBy("");
+		setSortBy("title");
 	};
 
   return (
-    <BrowserRouter>
+	<BrowserRouter>
 		<NavigationBar user={user} onLoggedOut={() => {
 			setUser(null);
 			setToken(null);
 			localStorage.removeItem('user');
 			localStorage.removeItem('token');
 			}} />
-      	<Row className="justify-content-md-center">
+		<Row className="justify-content-md-center">
 			<Routes>
 				<Route
 					path="/signup"
@@ -195,134 +196,159 @@ export const MainView = () => {
 								<Col>The list is empty!</Col>
 							) : (
 								<>
-									{/* --- Filter Controls --- */}
-									<Col>
-										<Card>
-											<Card.Header>
-												<h5 className="mb-0">Filter & Sort Movies</h5>
-											</Card.Header>
-											<Card.Body>
-												<Row>
-													<Col md={6} lg={3} className="mb-3">
-														<Form.Group>
-															<Form.Label>Search</Form.Label>
-															<Form.Control
-																type="text"
-																placeholder="Enter movie title"
-																value={searchTerm}
-																onChange={(e) => setSearchTerm(e.target.value)}
-																className="custom-form-control"
-															/>
-														</Form.Group>
-													</Col>
+									<Col xs={12} className="mb-4">
+										<div className="bg-light border rounded-3 shadow-sm">
+											{/* Filter Toggler */}
+											<div className = "d-flex justify-content-between align-items-center p-3 border-bottom">
+												<div className="d-flex align-items-center">
+													<h6 className="mb-0 me-3">Filter & Sort</h6>
+													<small className="text-muted">
+														{filteredAndSortedMovies.length} of {movies.length} movies
+														{(searchTerm || selectedGenre || selectedDirector || selectedYear || sortBy !== "title") && (
+															<span className="badge bg-primary ms-2">Filtered</span>
+														)}
+													</small>
+												</div>
+												<Button
+													variant="outline-secondary"
+													size="sm"
+													onClick={() => setShowFilters(!showFilters)}
+													className="d-flex align-items-center"
+												>
+													{showFilters ? (
+														<span className="me-1">Hide</span>
+													) : (
+														<span className="me-1">Show</span>
+													)}
+												</Button>
+											</div>
 
-													{/* --- Genre Filter --- */}
-													<Col md={6} lg={2} className="mb-3">
-														<Form.Group>
-															<Form.Label>Genre</Form.Label>
-															<Form.Select
-																value={selectedGenre}
-																onChange={(e) => setSelectedGenre(e.target.value)}
-																className="custom-form-control"
+											{showFilters && (
+												<div className="p-3">
+													<Row className="align-items-end g-2">
+														{/* --- Movie search --- */}
+														<Col xs={12} sm={6} md={4} lg={3}>
+															<Form.Group className="mb-0">
+																<Form.Label className="small fw-semibold text-muted mb-1">Search Movies</Form.Label>
+																<Form.Control 
+																	type="text"
+																	placeholder="Enter Movie Title"
+																	value={searchTerm}
+																	onChange={(e) => setSearchTerm(e.target.value)}
+																	className="custom-form-control"
+																/>
+															</Form.Group>
+														</Col>
+
+														{/* --- Genre Filter --- */}
+														<Col xs={6} sm={6} md={4} lg={3}>
+															<Form.Group className="mb-0">
+																<Form.Label className="small fw-semibold text-muted mb-1">Genre</Form.Label>
+																<Form.Select
+																	value={selectedGenre}
+																	onChange={(e) => setSelectedGenre(e.target.value)}
+																	size="sm"
+																	className="custom-form-control"
+																>
+																	<option value="">All</option>
+																	{uniqueGenres.map((genre) => (
+																		<option key={genre} value={genre}>
+																			{genre}
+																		</option>
+																	))}
+																</Form.Select>
+															</Form.Group>
+														</Col>
+
+														{/* --- Director Filter --- */}
+														<Col xs={6} sm={6} md={4} lg={3}>
+															<Form.Group className="mb-0">
+																<Form.Label className="small fw-semibold text-muted mb-1">Genre</Form.Label>
+																<Form.Select
+																	value={selectedDirector}
+																	onChange={(e) => setSelectedDirector(e.target.value)}
+																	size="sm"
+																	className="custom-form-control"
+																>
+																	<option value="">All</option>
+																	{uniqueDirectors.map((director) => (
+																		<option key={director} value={director}>
+																			{director}
+																		</option>
+																	))}
+																</Form.Select>
+															</Form.Group>
+														</Col>
+
+														{/* --- Year Filter --- */}
+														<Col xs={6} sm={6} md={4} lg={3}>
+															<Form.Group className="mb-0">
+																<Form.Label className="small fw-semibold text-muted mb-1">Genre</Form.Label>
+																<Form.Select
+																	value={selectedYear}
+																	onChange={(e) => setSelectedYear(e.target.value)}
+																	size="sm"
+																	className="custom-form-control"
+																>
+																	<option value="">All</option>
+																	{uniqueYears.map((year) => (
+																		<option key={year} value={year}>
+																			{year}
+																		</option>
+																	))}
+																</Form.Select>
+															</Form.Group>
+														</Col>
+
+														{/* --- Sort Options --- */}
+														<Col xs={6} sm={6} md={4} lg={3}>
+															<Form.Group className="mb-0">
+																<Form.Label className="small fw-semibold text-muted mb-1">Genre</Form.Label>
+																<Form.Select
+																	value={sortBy}
+																	onChange={(e) => setSortBy(e.target.value)}
+																	size="sm"
+																	className="custom-form-control"
+																>
+																	<option value="title">Title (A-Z)</option>
+																	<option value="year">Release Year</option>
+																	<option value="director">Director (A-Z)</option>
+																</Form.Select>
+															</Form.Group>
+														</Col>
+
+														{/* --- Clear Button --- */}
+														<Col xs={6} sm={6} md={4} lg={3}>
+															<Button
+																variant="outline-secondary"
+																size="sm"
+																onClick={clearFilters}
+																className="w-100"
 															>
-																<option value="">All Genres</option>
-																{uniqueGenres.map((genre) => (
-																	<option key={genre} value={genre}>
-																		{genre}
-																	</option>
-																))}
-															</Form.Select>
-														</Form.Group>
-													</Col>
-
-													{/* --- Director Filter --- */}
-													<Col md={6} lg={2} className="mb-3">
-														<Form.Group>
-															<Form.Label>Director</Form.Label>
-															<Form.Select
-																value={selectedDirector}
-																onChange={(e) => setSelectedDirector(e.target.value)}
-																className="custom-form-control"
-															>
-																<option value="">All Directors</option>
-																{uniqueDirectors.map((director) => (
-																	<option key={director}  value={director}>
-																		{director}
-																	</option>
-																))}
-															</Form.Select>
-														</Form.Group>
-													</Col>
-
-													{/* --- Year Filter --- */}
-													<Col md={6} lg={2} className="mb-3">
-														<Form.Group>
-															<Form.Label>Release Year</Form.Label>
-															<Form.Select
-																value={selectedYear}
-																onChange={(e) => setSelectedYear(e.target.value)}
-																className="custom-form-control"
-															>
-																<option value="">All Years</option>
-																{uniqueYears.map((year) => (
-																	<option key={year} value={year}>
-																		{year}
-																	</option>
-																))}
-															</Form.Select>
-														</Form.Group>
-													</Col>
-
-													{/* --- Sort Options --- */}
-													<Col md={6} lg={2} className="mb-3">
-														<Form.Group>
-															<Form.Label>Sort By</Form.Label>
-															<Form.Select
-																value={sortBy}
-																onChange={(e) => setSortBy(e.target.value)}
-																className="custom-form-control"
-															>
-																<option value="title">Title (A-Z)</option>
-																<option value="year">Release Year</option>
-																<option value="director">Director (A-Z)</option>
-															</Form.Select>
-														</Form.Group>
-													</Col>
-
-													<Col md={6} lg={2} className="mb-3 d-flex align-items-end">
-														<Button
-															variant="outline-secondary"
-															onClick={clearFilters}
-															className="w-100"
-														>
-															Clear
-														</Button>
-													</Col>
-												</Row>
-
-												<Row>
-													<Col>
-														<small className="text-muted">
-															Showing {filteredAndSortedMovies.length} of {movies.length} movies
-															{(searchTerm || selectedGenre || selectedDirector || selectedYear ) && (
-																<span className="ms-2">
-																	(filtered)
-																</span>
-															)}
-														</small>
-													</Col>
-												</Row>
-											</Card.Body>
-										</Card>
+																Clear All Filters
+															</Button>
+														</Col>
+													</Row>
+												</div>
+											)}
+										</div>
 									</Col>
+
+									{/* --- Movie Grid --- */}
 									{filteredAndSortedMovies.length === 0 ? (
 										<Col xs={12} className="text-center">
-											<p>No movies match your current filters. Try adjusting your search criteria.</p>
+											<div className="py-5">
+												<h5 className="text-muted">No movies match your current filters</h5>
+												<p className="text-muted">Try adjusting your search criteria or clearing filters</p>
+												<Button variant="outline-primary" onClick={clearFilters}>
+													Reset Filters
+												</Button>
+											</div>
 										</Col>
 									) : (
 										filteredAndSortedMovies.map((movie) => (
 											<Col className="mb-4" key={movie.id} xs={6} sm={4} md={3} lg={2}>
-												<MovieCard 
+												<MovieCard
 													movie={movie}
 													user={user}
 													token={token}
@@ -357,7 +383,7 @@ export const MainView = () => {
 					}
 				/>	
 			</Routes>
-    	</Row>
+		</Row>
 	</BrowserRouter>
   );
 };
