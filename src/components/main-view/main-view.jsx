@@ -91,7 +91,7 @@ export const MainView = () => {
 
 	const filteredAndSortedMovies = useMemo(() => {
 		let filtered = movies.filter(movie => {
-			const matchesSearch = movie.title.toLowerCase().includes(searchTerm.toLowerCase());
+			const matchesSearch = movie.title.toLowerCase().startsWith(searchTerm.toLowerCase());
 			const matchesGenre = !selectedGenre || movie.genre.Name === selectedGenre;
 			const matchesDirector = !selectedDirector || movie.director.Name === selectedDirector;
 			const matchesYear = !selectedYear || movie.releaseYear === selectedYear;
